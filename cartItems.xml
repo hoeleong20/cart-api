@@ -2,17 +2,22 @@
 <CartItems>
     <Item>
         <foodName>Spaghetti Bolognese</foodName>
-        <orderID>61</orderID>
+        <orderID>26</orderID>
+        <quantity>1</quantity>
+    </Item>
+    <Item>
+        <foodName>Caesar Salad</foodName>
+        <orderID>26</orderID>
         <quantity>1</quantity>
     </Item>
     <Item>
         <foodName>Pizza</foodName>
-        <orderID>61</orderID>
+        <orderID>26</orderID>
         <quantity>1</quantity>
     </Item>
     <Item>
-        <foodName>Spaghetti Bolognese</foodName>
-        <orderID>62</orderID>
+        <foodName>Pizza</foodName>
+        <orderID>28</orderID>
         <quantity>1</quantity>
     </Item>
 </CartItems>

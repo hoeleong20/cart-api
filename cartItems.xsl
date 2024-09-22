@@ -5,16 +5,16 @@
     <xsl:template match="/">
         <html>
             <head>
-                <title>Cart Items Grouped by Food</title>
+                <title>Kitchen System</title>
             </head>
             <body>
-                <h1>Cart Items Grouped by Food Name</h1>
+                <h1>Preparation Order</h1>
                 <table border="1">
                     <tr>
                         <th>Food Name</th>
                         <th>Order ID</th>
                         <th>Quantity</th>
-                        <th>Remove Item</th>
+                        <th>Complete Item</th>
                     </tr>
                     <!-- Loop through each unique foodName -->
                     <xsl:for-each select="CartItems/Item[generate-id() = generate-id(key('foodKey', foodName)[1])]">
@@ -34,7 +34,7 @@
                                         <form method="post" action="/remove-item">
                                             <input type="hidden" name="orderID" value="{orderID}" />
                                             <input type="hidden" name="foodName" value="{foodName}" />
-                                            <input type="submit" value="Remove" />
+                                            <input type="submit" value="Complete" />
                                         </form>
                                     </td>
                                 </tr>

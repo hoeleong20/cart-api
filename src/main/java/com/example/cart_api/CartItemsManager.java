@@ -5,28 +5,37 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 import java.io.File;
-import java.io.FileWriter;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class CartItemsManager {
 
     private static final String XML_FILE_PATH = "cartItems.xml";
 
-    // Method to save or append the cart items
+    // Method to save or append the cart items while avoiding duplicates
     public void saveCartItems(CartItems newItems) throws JAXBException {
         File xmlFile = new File(XML_FILE_PATH);
 
         if (xmlFile.exists()) {
-            // If the file exists, append new items
+            // Load existing items from the XML file
             JAXBContext jaxbContext = JAXBContext.newInstance(CartItems.class);
             Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
             CartItems existingItems = (CartItems) unmarshaller.unmarshal(xmlFile);
 
-            // Append new items to the existing list
-            List<CartItems.Item> existingList = existingItems.getItems();
-            existingList.addAll(newItems.getItems());
+            // Check if new items already exist in the existing list, and avoid adding
+            // duplicates
+            for (CartItems.Item newItem : newItems.getItems()) {
+                boolean isDuplicate = existingItems.getItems().stream()
+                        .anyMatch(existingItem -> existingItem.getOrderID().equals(newItem.getOrderID()) &&
+                                existingItem.getFoodName().equals(newItem.getFoodName()));
 
-            // Marshal (save) the updated cart items back to the file
+                // Add the item only if it is not a duplicate
+                if (!isDuplicate) {
+                    existingItems.getItems().add(newItem);
+                }
+            }
+
+            // Save the updated list back to the XML file
             saveToXml(existingItems);
         } else {
             // If the file doesn't exist, create a new file and save the cart items
