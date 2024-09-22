@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+    <xsl:key name="foodKey" match="Item" use="foodName"/>
+
+    <xsl:template match="/">
+        <html>
+        <body>
+            <h1>Grouped Cart Items by Food Name</h1>
+            <table border="1">
+                <tr>
+                    <th>Food Name</th>
+                    <th>Order IDs</th>
+                    <th>Total Quantity</th>
+                </tr>
+                <!-- Group items by foodName -->
+                <xsl:for-each select="CartItems/Item[generate-id() = generate-id(key('foodKey', foodName)[1])]">
+                    <tr>
+                        <td><xsl:value-of select="foodName"/></td>
+                        <td>
+                            <!-- List all order IDs for this food -->
+                            <xsl:for-each select="key('foodKey', foodName)">
+                                <xsl:value-of select="orderID"/>
+                                <xsl:if test="position() != last()">, </xsl:if>
+                            </xsl:for-each>
+                        </td>
+                        <td>
+                            <!-- Sum the quantities -->
+                            <xsl:value-of select="sum(key('foodKey', foodName)/quantity)"/>
+                        </td>
+                    </tr>
+                </xsl:for-each>
+            </table>
+        </body>
+        </html>
+    </xsl:template>
+</xsl:stylesheet>

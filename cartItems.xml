@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<CartItems>
+    <Item>
+        <foodName>Spaghetti Bolognese</foodName>
+        <orderID>61</orderID>
+        <quantity>1</quantity>
+    </Item>
+    <Item>
+        <foodName>Pizza</foodName>
+        <orderID>61</orderID>
+        <quantity>1</quantity>
+    </Item>
+    <Item>
+        <foodName>Spaghetti Bolognese</foodName>
+        <orderID>62</orderID>
+        <quantity>1</quantity>
+    </Item>
+</CartItems>
